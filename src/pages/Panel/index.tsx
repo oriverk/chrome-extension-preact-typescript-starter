@@ -1,4 +1,4 @@
-import { h, render } from "preact";
+import { h, render } from 'preact';
 import Panel from './Panel';
 import './index.css';
 

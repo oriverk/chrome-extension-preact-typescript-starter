@@ -1,5 +1,5 @@
-import { Fragment, h, render } from "preact";
-import { useEffect, useState } from "preact/compat"
+import { Fragment, h, render } from 'preact';
+import { useEffect, useState } from 'preact/compat';
 
 const Popup = () => {
   const [count, setCount] = useState(0);
@@ -10,23 +10,23 @@ const Popup = () => {
   }, [count]);
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       setCurrentURL(tabs[0].url);
     });
   }, []);
 
   const changeBackground = () => {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tab = tabs[0];
       if (tab.id) {
         chrome.tabs.sendMessage(
           tab.id,
           {
-            color: "#555555",
+            color: '#555555',
           },
           (msg) => {
-            console.log("result message:", msg);
-          }
+            console.log('result message:', msg);
+          },
         );
       }
     });
@@ -34,14 +34,11 @@ const Popup = () => {
 
   return (
     <Fragment>
-      <ul style={{ minWidth: "700px" }}>
+      <ul style={{ minWidth: '700px' }}>
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
       </ul>
-      <button
-        onClick={() => setCount(count + 1)}
-        style={{ marginRight: "5px" }}
-      >
+      <button onClick={() => setCount(count + 1)} style={{ marginRight: '5px' }}>
         count up
       </button>
       <button onClick={changeBackground}>change background</button>
@@ -49,4 +46,4 @@ const Popup = () => {
   );
 };
 
-render(<Popup />, document.getElementById("root"));
+render(<Popup />, document.getElementById('root'));

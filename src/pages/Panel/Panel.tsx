@@ -1,5 +1,5 @@
-import { h } from "preact";
-import "./Panel.css";
+import { h } from 'preact';
+import './Panel.css';
 
 const Panel: React.FC = () => {
   return (

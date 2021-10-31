@@ -1,36 +1,34 @@
-import { Fragment, h, render } from "preact";
-import { useEffect, useState } from "preact/compat"
+import { Fragment, h, render } from 'preact';
+import { useEffect, useState } from 'preact/compat';
 // import React, { useEffect, useState } from "react";
 // import ReactDOM from "react-dom";
 
 const Options = () => {
-  const [color, setColor] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
+  const [color, setColor] = useState<string>('');
+  const [status, setStatus] = useState<string>('');
   const [like, setLike] = useState<boolean>(false);
 
-  const onChange = e => {
-    setColor(e.target.value)
-  }
-
-  
+  const onChange = (e) => {
+    setColor(e.target.value);
+  };
 
   const toggle = (e: any) => {
-    let checked = !e.state.checked;
+    const checked = !e.state.checked;
     setLike(checked);
-  }
+  };
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences
     // stored in chrome.storage.
     chrome.storage.sync.get(
       {
-        favoriteColor: "red",
+        favoriteColor: 'red',
         likesColor: true,
       },
       (items) => {
         setColor(items.favoriteColor);
         setLike(items.likesColor);
-      }
+      },
     );
   }, []);
 
@@ -43,12 +41,12 @@ const Options = () => {
       },
       () => {
         // Update status to let user know options were saved.
-        setStatus("Options saved.");
+        setStatus('Options saved.');
         const id = setTimeout(() => {
-          setStatus("");
+          setStatus('');
         }, 1000);
         return () => clearTimeout(id);
-      }
+      },
     );
   };
 
@@ -56,10 +54,7 @@ const Options = () => {
     <Fragment>
       <div>
         Favorite color:
-        <select
-          value={color}
-          onChange={onChange}
-        >
+        <select value={color} onChange={onChange}>
           <option value="red">red</option>
           <option value="green">green</option>
           <option value="blue">blue</option>
@@ -83,7 +78,4 @@ const Options = () => {
   );
 };
 
-render(
-  <Options />,
-  document.getElementById("root")
-);
+render(<Options />, document.getElementById('root'));
