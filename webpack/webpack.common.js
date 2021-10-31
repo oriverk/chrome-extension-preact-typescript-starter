@@ -3,47 +3,63 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const srcDir = path.join(__dirname, "..", "src");
 
+console.log('srcDir', srcDir)
+
 module.exports = {
-    entry: {
-        popup: path.join(srcDir, "popup.tsx"),
-        options: path.join(srcDir, "options.tsx"),
-        background: path.join(srcDir, "background.ts"),
-        content_script: path.join(srcDir, "content_script.tsx"),
+  entry: {
+    popup: path.join(srcDir, "pages", "Popup", "index.tsx"),
+    options: path.join(srcDir, "pages", "Options", "index.tsx"),
+    background: path.join(srcDir, "pages", "Background", "index.ts"),
+    content_script: path.join(srcDir, "pages", "ContentScript", "index.ts"),
+    devtools: path.join(srcDir, "pages", "Devtools", "index.ts"),
+    panel: path.join(srcDir, "pages", "Panel", "index.tsx"),
+  },
+  output: {
+    path: path.join(__dirname, "../dist/js"),
+    filename: "[name].js",
+  },
+  optimization: {
+    splitChunks: {
+      name: "vendor",
+      chunks(chunk) {
+        return chunk.name !== "background";
+      },
     },
-    output: {
-        path: path.join(__dirname, "../dist/js"),
-        filename: "[name].js",
-    },
-    optimization: {
-        splitChunks: {
-        name: "vendor",
-        chunks(chunk) {
-            return chunk.name !== "background";
-        },
-        },
-    },
-    module: {
-        rules: [
-        {
-            test: /\.tsx?$/,
-            use: "ts-loader",
-            exclude: /node_modules/,
-        },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(css|scss)$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+
         ],
-    },
-    resolve: {
-        extensions: [".ts", ".tsx", ".js"],
-        alias: {
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
-        "react/jsx-runtime": "preact/jsx-runtime",
-        },
-    },
-    plugins: [
-        new CopyPlugin({
-        patterns: [{ from: ".", to: "../", context: "public" }],
-        options: {},
-        }),
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
     ],
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
+    alias: {
+      react: "preact/compat",
+      "react-dom/test-utils": "preact/test-utils",
+      "react-dom": "preact/compat",
+      "react/jsx-runtime": "preact/jsx-runtime",
+    },
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: ".", to: "../", context: "public" }],
+      options: {},
+    }),
+  ],
 };
