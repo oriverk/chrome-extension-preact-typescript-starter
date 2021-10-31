@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { Fragment, h, render } from "preact";
+import { useEffect, useState } from "preact/compat"
 
 const Popup = () => {
   const [count, setCount] = useState(0);
@@ -33,7 +33,7 @@ const Popup = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <ul style={{ minWidth: "700px" }}>
         <li>Current URL: {currentURL}</li>
         <li>Current Time: {new Date().toLocaleTimeString()}</li>
@@ -45,13 +45,8 @@ const Popup = () => {
         count up
       </button>
       <button onClick={changeBackground}>change background</button>
-    </>
+    </Fragment>
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Popup />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
+render(<Popup />, document.getElementById("root"));

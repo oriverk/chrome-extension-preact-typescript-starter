@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-        "strict": true,
+        "jsxFactory": "h",
+        "strict": false,
         "module": "commonjs",
         "target": "es6",
         "esModuleInterop": true,

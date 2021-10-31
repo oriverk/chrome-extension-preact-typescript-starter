@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { Fragment, h, render } from "preact";
+import { useEffect, useState } from "preact/compat"
+// import React, { useEffect, useState } from "react";
+// import ReactDOM from "react-dom";
 
 const Options = () => {
   const [color, setColor] = useState<string>("");
   const [status, setStatus] = useState<string>("");
   const [like, setLike] = useState<boolean>(false);
+
+  const onChange = e => {
+    setColor(e.target.value)
+  }
+
+  
+
+  const toggle = (e: any) => {
+    let checked = !e.state.checked;
+    setLike(checked);
+  }
 
   useEffect(() => {
     // Restores select box and checkbox state using the preferences
@@ -40,11 +53,12 @@ const Options = () => {
   };
 
   return (
-    <>
+    <Fragment>
       <div>
-        Favorite color: <select
+        Favorite color:
+        <select
           value={color}
-          onChange={(event) => setColor(event.target.value)}
+          onChange={onChange}
         >
           <option value="red">red</option>
           <option value="green">green</option>
@@ -57,20 +71,19 @@ const Options = () => {
           <input
             type="checkbox"
             checked={like}
-            onChange={(event) => setLike(event.target.checked)}
+            onClick={toggle}
+            // onInput={(event) => setLike(event.target.checked)}
           />
           I like colors.
         </label>
       </div>
       <div>{status}</div>
       <button onClick={saveOptions}>Save</button>
-    </>
+    </Fragment>
   );
 };
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Options />
-  </React.StrictMode>,
+render(
+  <Options />,
   document.getElementById("root")
 );
