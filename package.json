@@ -23,6 +23,7 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
+    "goober": "^2.0.41",
     "preact": "^10.5.15"
   },
   "devDependencies": {
