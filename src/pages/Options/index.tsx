@@ -1,14 +1,12 @@
 import { Fragment, h, render } from 'preact';
 import { useEffect, useState } from 'preact/compat';
-// import React, { useEffect, useState } from "react";
-// import ReactDOM from "react-dom";
 
 const Options = () => {
   const [color, setColor] = useState<string>('');
   const [status, setStatus] = useState<string>('');
   const [like, setLike] = useState<boolean>(false);
 
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     setColor(e.target.value);
   };
 
